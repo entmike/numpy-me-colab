@@ -54,10 +54,7 @@ class Projector:
     def _info(self, *args):
         if self.verbose:
             print('Projector:', *args)
-
-    def set_start_dlatent(self, dl):
-        self._dlatent_avg = np.mean(dl, axis=0, keepdims=True) # [1, 1, 512]
-
+    
     def set_network(self, Gs, minibatch_size=1):
         assert minibatch_size == 1
         self._Gs = Gs
