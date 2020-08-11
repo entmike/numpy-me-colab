@@ -232,8 +232,7 @@ def show_latent(file, truncation_psi = 1.0):
 
 print('GPU Identified at: {}'.format(tf.test.gpu_device_name()))
 
-network_pkl = "/models/stylegan2-ffhq-config-f.pkl"
-# network_pkl = "/home/models/ffhq-512-avg-tpurun1.pkl"
+network_pkl = "/content/drive/My Drive/numpy-me/stylegan2-ffhq-config-f.pkl"
 print('Loading networks from "%s"...' % network_pkl)
 
 _G, _D, Gs = pretrained_networks.load_networks(network_pkl)
