@@ -55,6 +55,9 @@ class Projector:
         if self.verbose:
             print('Projector:', *args)
 
+    def set_start_dlatent(self, dl):
+        self._dlatent_avg
+
     def set_network(self, Gs, minibatch_size=1):
         assert minibatch_size == 1
         self._Gs = Gs
