@@ -42,7 +42,7 @@ class Projector:
         self._dlatents_expr         = None
         self._images_expr           = None
         self._target_images_var     = None
-        self._lpips                 = pickle.load(open('/content/drive/My Drive/numpy-me/shape_predictor_68_face_landmarks.dat','rb'), encoding='latin1')
+        self._lpips                 = pickle.load('/content/drive/My Drive/numpy-me/shape_predictor_68_face_landmarks.dat', encoding='latin1')
         self._dist                  = None
         self._loss                  = None
         self._reg_sizes             = None
