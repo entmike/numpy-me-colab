@@ -37,7 +37,7 @@ def main(arg1, arg2):
     ALIGNED_IMAGES_DIR = arg2
 
     landmarks_detector = LandmarksDetector(landmarks_model_path)
-    for img_name in os.listdir(RAW_IMAGES_DIR):
+    for img_name in sorted(os.listdir(RAW_IMAGES_DIR)):
         if not img_name.startswith('.'):
             raw_img_path = os.path.join(RAW_IMAGES_DIR, img_name)
             print(raw_img_path)
