@@ -261,7 +261,9 @@ truncation_psi = 1
 if not os.path.exists('/latents/progress'):
     os.makedirs('/latents/progress')
 
-# Clean up
+# Clean up extracted faces
+map(os.unlink, (os.path.join('/out',f) for f in os.listdir('/out')))
+# Clean up progress directory
 map(os.unlink, (os.path.join('/latents/progress',f) for f in os.listdir('/latents/progress')))
 
 # Get Filenames
