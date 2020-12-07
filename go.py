@@ -22,6 +22,7 @@ import run_projector
 import projector
 import training.dataset
 import training.misc
+import encoder
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # or any {'0', '1', '2'}
 
@@ -268,7 +269,8 @@ num_images = sum(len(files) for _, _, files in os.walk(r'/out/'))
 
 # Run the projector
 def project_real_images(dataset_name, data_dir, num_images, num_snapshots):
-    proj = projector.Projector(num_steps)
+    # proj = projector.Projector(num_steps)
+    proj = encoder.Encoder(num_steps)
     proj.set_network(Gs)
     print('Loading images from "%s"...' % dataset_name)
 
@@ -282,20 +284,27 @@ def project_real_images(dataset_name, data_dir, num_images, num_snapshots):
     )
     assert dataset_obj.shape == Gs.output_shape[1:]
     latents = []
+
+    prior_dlatent = dlatent_avg = Gs.get_var('dlatent_avg').copy()
+
     for row, image_idx in enumerate(range(num_images)):
         print('Projecting image %d/%d ...' % ((image_idx+1), num_images))
+        print('Encoding image %d/%d ...' % ((image_idx+1), num_images))
         images, _labels = dataset_obj.get_minibatch_np(1)
         images = training.misc.adjust_dynamic_range(images, [0, 255], [-1, 1])
+
         run_projector.project_image(
             proj,
             targets=images,
-            png_prefix=dnnlib.make_run_dir_path('/tmp/%s-' % files[image_idx]),
+            png_prefix=dnnlib.make_run_dir_path('/latents/progress/%s - ' % files[image_idx]),
             num_snapshots=num_snapshots
         )
+        dlatent = proj.get_dlatents()
         # Save tmp copy in Google Drive
-        save_latent(proj.get_dlatents(), '/latents/%s' % files[row])
+        save_latent(dlatent, '/latents/' + files[row])
         # Add to array
-        latents.append(proj.get_dlatents())
+        latents.append(dlatent)
+        prior_dlatent = dlatent_avg = dlatent.copy()
     
     # Returns all latents projected
     return latents
