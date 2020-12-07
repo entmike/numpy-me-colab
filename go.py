@@ -241,14 +241,24 @@ noise_vars = [var for name, var in Gs.components.synthesis.vars.items() if name.
 # Align Faces
 align_images.main('/in','/out')
 
+# Sort Filenames
+import math
+aligned_imgs = []
+for dirpath,_,f in sorted(os.walk(r'/out')):
+  for file in f:
+    aligned_imgs.append(PIL.Image.open(dirpath + '/' + file))
+
 num_steps =  1000#@param {type:"number"}
 truncation_psi = 1 #@param {type:"slider", min:0, max:1, step:0.01}
 
 # Get Filenames
 files = []
-for _,_,f in os.walk(r'/out'):
+for _,_,f in sorted(os.walk(r'/out')):
   for file in f:
     files.append(os.path.splitext(file)[0])
+
+# Sort files so they match TFRecords order
+files = sorted(files)
 
 # Convert uploaded images to TFRecords
 dataset_tool.create_from_images("/records/", "/out/", True)
