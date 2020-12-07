@@ -20,7 +20,7 @@ RUN mkdir /models && cd /models && \
     wget http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2 && \
     wget http://d36zk2xti64re0.cloudfront.net/stylegan1/networks/metrics/vgg16_zhang_perceptual.pkl
 
-ARG CACHE_DATE=1900-01-01
+ARG CACHE_DATE=1900-01-01 
 
 RUN cd / && \
     mkdir /out /in /latents /records && \
