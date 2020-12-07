@@ -24,12 +24,11 @@ ARG CACHE_DATE=1900-01-01
 
 RUN cd / && \
     mkdir /out /in /latents /records && \
-    git clone https://github.com/entmike/numpy-me-colab.git && \
-    cd /numpy-me-colab
+    git clone https://github.com/entmike/numpy-me-colab.git
 
 # Sample Files
 COPY ./samples/ /in/
 
 WORKDIR /numpy-me-colab
 
-ENTRYPOINT [ "python", "go.py" ]
+CMD [ "python", "go.py" ]

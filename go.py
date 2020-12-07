@@ -234,7 +234,7 @@ def show_latent(file, truncation_psi = 1.0):
 
 print('GPU Identified at: {}'.format(tf.test.gpu_device_name()))
 
-network_pkl = "/content/drive/My Drive/numpy-me/stylegan2-ffhq-config-f.pkl"
+network_pkl = "/models/stylegan2-ffhq-config-f.pkl"
 print('Loading networks from "%s"...' % network_pkl)
 
 _G, _D, Gs = pretrained_networks.load_networks(network_pkl)
@@ -307,7 +307,7 @@ def project_real_images(dataset_name, data_dir, num_images, num_snapshots):
             num_snapshots=num_snapshots
         )
         dlatent = proj.get_dlatents()
-        # Save tmp copy in Google Drive
+        # Save Latent
         save_latent(dlatent, '/latents/' + files[row])
         # Add to array
         latents.append(dlatent)
