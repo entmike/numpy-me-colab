@@ -238,7 +238,8 @@ print('GPU Identified at: {}'.format(tf.test.gpu_device_name()))
 network_pkl = "/models/stylegan2-ffhq-config-f.pkl"
 print('Loading networks from "%s"...' % network_pkl)
 
-_G, _D, Gs = pickle.load(network_pkl, encoding='latin1')
+stream = open(network_pkl, 'rb')
+_G, _D, Gs = pickle.load(stream, encoding='latin1')
 noise_vars = [var for name, var in Gs.components.synthesis.vars.items() if name.startswith('noise')]
 
 # Align Faces
