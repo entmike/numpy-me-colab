@@ -1,6 +1,7 @@
 import tensorflow as tf
 
 # Download the model of choice
+import os
 import argparse
 import numpy as np
 import PIL.Image
@@ -249,8 +250,15 @@ for dirpath,_,f in sorted(os.walk(r'/out')):
   for file in f:
     aligned_imgs.append(PIL.Image.open(dirpath + '/' + file))
 
-num_steps =  1000#@param {type:"number"}
-truncation_psi = 1 #@param {type:"slider", min:0, max:1, step:0.01}
+num_steps =  1500
+truncation_psi = 1
+
+# Progress folder
+if not os.path.exists('/latents/progress'):
+    os.makedirs('/latents/progress')
+
+# Clean up
+map(os.unlink, (os.path.join('/latents/progress',f) for f in os.listdir('/latents/progress')))
 
 # Get Filenames
 files = []
@@ -288,7 +296,6 @@ def project_real_images(dataset_name, data_dir, num_images, num_snapshots):
     prior_dlatent = dlatent_avg = Gs.get_var('dlatent_avg').copy()
 
     for row, image_idx in enumerate(range(num_images)):
-        print('Projecting image %d/%d ...' % ((image_idx+1), num_images))
         print('Encoding image %d/%d ...' % ((image_idx+1), num_images))
         images, _labels = dataset_obj.get_minibatch_np(1)
         images = training.misc.adjust_dynamic_range(images, [0, 255], [-1, 1])
