@@ -7,7 +7,7 @@ from ffhq_dataset.landmarks_detector import LandmarksDetector
 
 LANDMARKS_MODEL_URL = 'http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2'
 
-LANDMARKS_LOCAL_FILE = '/content/drive/My Drive/numpy-me/shape_predictor_68_face_landmarks.dat.bz2'
+LANDMARKS_LOCAL_FILE = '/models/shape_predictor_68_face_landmarks.dat.bz2'
 
 def unpack_bz2(src_path):
     data = bz2.BZ2File(src_path).read()
@@ -31,7 +31,7 @@ def main(arg1, arg2):
 
     # landmarks_model_path = unpack_bz2(LANDMARKS_LOCAL_FILE)
 
-    landmarks_model_path = '/content/drive/My Drive/numpy-me/shape_predictor_68_face_landmarks.dat'
+    landmarks_model_path = '/models/shape_predictor_68_face_landmarks.dat'
 
     RAW_IMAGES_DIR = arg1
     ALIGNED_IMAGES_DIR = arg2
