@@ -282,7 +282,7 @@ def project_real_images(dataset_name, data_dir, num_images, num_snapshots):
     proj.set_network(Gs)
     print('Loading images from "%s"...' % dataset_name)
 
-    dataset_obj = training.dataset.load_dataset(
+    dataset_obj = training.dataset.load_dataset( 
         data_dir=data_dir, 
         tfrecord_dir=dataset_name, 
         max_label_size=0, 
